@@ -14,7 +14,8 @@ namespace ConsoleApp
             //Console.WriteLine($"Solution to Day 2 Part 1 is {Day2DivePart1(@"./data/day02_input.txt")}");
             //Console.WriteLine($"Solution to Day 2 Part 2 is {Day2DivePart2(@"./data/day02_input.txt")}");
 
-            Console.WriteLine($"Solution to Day 3 Part 1 is {Day3BinaryDiagnosticPart1(@"./data/day03_input.txt")}");
+            //Console.WriteLine($"Solution to Day 3 Part 1 is {Day3BinaryDiagnosticPart1(@"./data/day03_input.txt")}");
+            Console.WriteLine($"Solution to Day 3 Part 2 is {Day3BinaryDiagnosticPart2(@"./data/day03_input.txt")}");
 
             Console.ReadLine();
         }
@@ -188,6 +189,17 @@ namespace ConsoleApp
             }
 
             return gammaDecimalNum * epsilonDecimalNum;
+        }
+
+        private static int Day3BinaryDiagnosticPart2(string filepath)
+        {
+            int[,] bitArray = HelperMethods.GetArrayOfBitsFromFile(filepath);
+
+            
+
+
+
+            return 0;
         }
     }
 }
