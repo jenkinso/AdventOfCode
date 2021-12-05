@@ -27,7 +27,7 @@ namespace ConsoleApp
             return numbersList.ToArray();
         }
 
-        public static int[,] GetArrayOfBitsFromFile(string filepath)
+        public static int[,] GetArrayOfBinaryNumbersFromFile(string filepath)
         {
             string[] lines = File.ReadAllLines(filepath);
 
@@ -54,37 +54,6 @@ namespace ConsoleApp
             return bitArray;
         }
 
-        public static List<int[]> GetListOfBitArraysFromFile(string filepath, out int maxNumBits)
-        {
-            string[] lines = File.ReadAllLines(filepath);
-
-            maxNumBits = 0;
-
-            foreach (string line in lines)
-            {
-                if (line.Length > maxNumBits)
-                {
-                    maxNumBits = line.Length;
-                }
-            }
-
-            List<int[]> bitArrayList = new List<int[]>();
-
-            for (int row = 0; row < lines.Length; row++)
-            {
-                int[] bitArray = new int[maxNumBits];
-
-                for (int bitPosition = 0; bitPosition < lines[row].Length; bitPosition++)
-                {
-                    bitArray[bitPosition] = Convert.ToInt32(lines[row][bitPosition].ToString());
-                }
-
-                bitArrayList.Add(bitArray);
-            }
-
-            return bitArrayList;
-        }
-
         public static int GetMostCommonBitInPosition(int[,] arrayOfBinaryNums, List<int> rowIndicesList, int position)
         {
             int sumOfBits = 0;
@@ -103,7 +72,9 @@ namespace ConsoleApp
         {            
             int mostCommonBit = GetMostCommonBitInPosition(arrayOfBinaryNums, rowIndicesList, position);
 
-            return (mostCommonBit == 1) ? 0 : 1;
+            int leastCommonBit = (mostCommonBit == 1) ? 0 : 1;
+
+            return leastCommonBit;
         }
 
         public static double GetDecimalNumberFromBinaryBitArray(int[] binaryBitArray)
