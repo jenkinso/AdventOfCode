@@ -43,38 +43,81 @@ namespace ConsoleApp
 
             int[,] bitArray = new int[lines.Length, maxNumBits];
 
-            for (int i = 0; i < lines.Length; i++)
+            for (int row = 0; row < lines.Length; row++)
             {
-                for (int j = 0; j < lines[i].Length; j++)
+                for (int bitPosition = 0; bitPosition < lines[row].Length; bitPosition++)
                 {
-                    bitArray[i, j] = Convert.ToInt32(lines[i][j].ToString());
+                    bitArray[row, bitPosition] = Convert.ToInt32(lines[row][bitPosition].ToString());
                 }
             }
 
             return bitArray;
         }
 
-        public static int GetMostCommonBitInPosition(int[,] bitArray, int position)
+        public static List<int[]> GetListOfBitArraysFromFile(string filepath, out int maxNumBits)
         {
-            int numRows = bitArray.GetLength(0);
+            string[] lines = File.ReadAllLines(filepath);
 
-            int sumOfBits = 0;
+            maxNumBits = 0;
 
-            for (int row = 0; row < numRows; row++)
+            foreach (string line in lines)
             {
-                sumOfBits += bitArray[row, position];
+                if (line.Length > maxNumBits)
+                {
+                    maxNumBits = line.Length;
+                }
             }
 
-            int mostCommonBit = (sumOfBits >= numRows - sumOfBits) ? 1 : 0;
+            List<int[]> bitArrayList = new List<int[]>();
+
+            for (int row = 0; row < lines.Length; row++)
+            {
+                int[] bitArray = new int[maxNumBits];
+
+                for (int bitPosition = 0; bitPosition < lines[row].Length; bitPosition++)
+                {
+                    bitArray[bitPosition] = Convert.ToInt32(lines[row][bitPosition].ToString());
+                }
+
+                bitArrayList.Add(bitArray);
+            }
+
+            return bitArrayList;
+        }
+
+        public static int GetMostCommonBitInPosition(int[,] arrayOfBinaryNums, List<int> rowIndicesList, int position)
+        {
+            int sumOfBits = 0;
+
+            for (int row = 0; row < rowIndicesList.Count; row++)
+            {
+                sumOfBits += arrayOfBinaryNums[rowIndicesList[row], position];
+            }
+
+            int mostCommonBit = (sumOfBits >= rowIndicesList.Count - sumOfBits) ? 1 : 0;
 
             return mostCommonBit;
         }
 
-        public static int GetLeastCommonBitInPosition(int[,] bitArray, int position)
-        {
-            int mostCommonBit = GetMostCommonBitInPosition(bitArray, position);
+        public static int GetLeastCommonBitInPosition(int[,] arrayOfBinaryNums, List<int> rowIndicesList, int position)
+        {            
+            int mostCommonBit = GetMostCommonBitInPosition(arrayOfBinaryNums, rowIndicesList, position);
 
             return (mostCommonBit == 1) ? 0 : 1;
+        }
+
+        public static double GetDecimalNumberFromBinaryBitArray(int[] binaryBitArray)
+        {
+            int numBits = binaryBitArray.Length;
+            double decimalNumber = 0;
+
+            for (int bitPosition = 0; bitPosition < numBits; bitPosition++)
+            {
+                int exponent = numBits - bitPosition - 1;
+                decimalNumber += binaryBitArray[bitPosition] * Math.Pow(2, exponent);
+            }
+
+            return decimalNumber;
         }
     }
 }

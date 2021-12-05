@@ -191,15 +191,104 @@ namespace ConsoleApp
             return gammaDecimalNum * epsilonDecimalNum;
         }
 
-        private static int Day3BinaryDiagnosticPart2(string filepath)
+        private static double Day3BinaryDiagnosticPart2(string filepath)
         {
-            int[,] bitArray = HelperMethods.GetArrayOfBitsFromFile(filepath);
+            int[,] arrayOfBinaryNums = HelperMethods.GetArrayOfBitsFromFile(filepath);
 
-            
+            int[] oxygenGeneratorRating = GetOxygenGeneratorRatingBitArray(arrayOfBinaryNums);
 
+            int[] co2ScrubberRating = GetCO2ScrubberRatingBitArray(arrayOfBinaryNums);
 
+            double oxygenRatingDecimal = HelperMethods.GetDecimalNumberFromBinaryBitArray(oxygenGeneratorRating);
+            double co2RatingDecimal = HelperMethods.GetDecimalNumberFromBinaryBitArray(co2ScrubberRating);
 
-            return 0;
+            return oxygenRatingDecimal * co2RatingDecimal;
+        }
+
+        private static int[] GetOxygenGeneratorRatingBitArray(int[,] arrayOfBinaryNums)
+        {
+            List<int> rowIndicesList = new List<int>();
+
+            for (int rowIndex = 0; rowIndex < arrayOfBinaryNums.GetLength(0); rowIndex++)
+            {
+                rowIndicesList.Add(rowIndex);
+            }
+
+            int numBitsPerNumber = arrayOfBinaryNums.GetLength(1);
+
+            for (int bitPosition = 0; bitPosition < numBitsPerNumber; bitPosition++)
+            {
+                int mostCommonBit = HelperMethods.GetMostCommonBitInPosition(arrayOfBinaryNums, rowIndicesList, bitPosition);
+
+                int[] rowIndicesArray = rowIndicesList.ToArray();
+
+                for (int rowIndex = 0; rowIndex < rowIndicesArray.Length; rowIndex++)
+                {
+                    if (arrayOfBinaryNums[rowIndicesArray[rowIndex], bitPosition] != mostCommonBit)
+                    {
+                        rowIndicesList.Remove(rowIndicesArray[rowIndex]);
+                    }
+                }
+
+                if (rowIndicesList.Count < 2)
+                {
+                    break;
+                }
+            }
+
+            // TODO: Throw an error if rowIndicesList.Count != 1 ?
+
+            int[] oxygenRating = new int[numBitsPerNumber];
+
+            for (int bitPosition = 0; bitPosition < numBitsPerNumber; bitPosition++)
+            {
+                oxygenRating[bitPosition] = arrayOfBinaryNums[rowIndicesList[0], bitPosition];
+            }
+
+            return oxygenRating;            
+        }
+
+        private static int[] GetCO2ScrubberRatingBitArray(int[,] arrayOfBinaryNums)
+        {
+            List<int> rowIndicesList = new List<int>();
+
+            for (int rowIndex = 0; rowIndex < arrayOfBinaryNums.GetLength(0); rowIndex++)
+            {
+                rowIndicesList.Add(rowIndex);
+            }
+
+            int numBitsPerNumber = arrayOfBinaryNums.GetLength(1);
+
+            for (int bitPosition = 0; bitPosition < numBitsPerNumber; bitPosition++)
+            {
+                int leastCommonBit = HelperMethods.GetLeastCommonBitInPosition(arrayOfBinaryNums, rowIndicesList, bitPosition);
+
+                int[] rowIndicesArray = rowIndicesList.ToArray();
+
+                for (int rowIndex = 0; rowIndex < rowIndicesArray.Length; rowIndex++)
+                {
+                    if (arrayOfBinaryNums[rowIndicesArray[rowIndex], bitPosition] != leastCommonBit)
+                    {
+                        rowIndicesList.Remove(rowIndicesArray[rowIndex]);
+                    }
+                }
+
+                if (rowIndicesList.Count < 2)
+                {
+                    break;
+                }
+            }
+
+            // TODO: Throw an error if rowIndicesList.Count != 1 ?
+
+            int[] co2ScrubberRating = new int[numBitsPerNumber];
+
+            for (int bitPosition = 0; bitPosition < numBitsPerNumber; bitPosition++)
+            {
+                co2ScrubberRating[bitPosition] = arrayOfBinaryNums[rowIndicesList[0], bitPosition];
+            }
+
+            return co2ScrubberRating;
         }
     }
 }
