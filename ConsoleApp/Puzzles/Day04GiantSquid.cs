@@ -7,48 +7,46 @@ namespace ConsoleApp.Puzzles
 {
     public static class Day04GiantSquid
     {
-        public static int Part1(string filepath)
+        public static string Parts1And2(string filepath)
         {
+            // Get and process the input data
             int[] drawnNumbers = getDrawnNumbersFromFile(filepath);
-
             List<int[,]> bingoBoardData = getBingoBoardData(filepath);
 
+            // Create our Bingo Boards using the input data
             List<BingoBoard> bingoBoards = new List<BingoBoard>();
-
+            int boardCounter = 0;
             foreach (var board in bingoBoardData)
             {
-                bingoBoards.Add(new BingoBoard(board));
+                boardCounter++;
+                bingoBoards.Add(new BingoBoard(board, boardCounter));
             }
 
-            List<int> winningBoardIndices = new List<int>();
+            // Play Bingo!
+            List<int> listOfFinishers = new List<int>();
 
             foreach (int number in drawnNumbers)
             {
-                for (int boardIndex = 0; boardIndex < bingoBoards.Count; boardIndex++)
+                foreach (BingoBoard board in bingoBoards)
                 {
-                    bool wasStillPlaying = bingoBoards[boardIndex].StillPlaying;
-                    
-                    bingoBoards[boardIndex].CallNumber(number);
-                    if (bingoBoards[boardIndex].BingoStatus && wasStillPlaying)
+                    bool wasStillPlaying = board.StillPlaying;
+
+                    board.CallNumber(number);
+
+                    if (board.Bingo && wasStillPlaying)
                     {
-                        winningBoardIndices.Add(boardIndex);
+                        listOfFinishers.Add(bingoBoards.IndexOf(board));
                     }
                 }
-
-                if (winningBoardIndices.Count > 0)
-                {
-                    //break;
-                }
             }
 
-            int finalPuzzleAnswer = 0;
+            BingoBoard firstPlace = bingoBoards[listOfFinishers[0]];
+            BingoBoard lastPlace = bingoBoards[listOfFinishers[listOfFinishers.Count - 1]];
 
-            if (winningBoardIndices.Count == 1)
-            {
-                finalPuzzleAnswer = bingoBoards[winningBoardIndices[0]].Score;
-            }
+            string puzzleAnswer = $"\nBoard {firstPlace.BoardNumber} won with a final score of {firstPlace.Score}." +
+                                  $"\nBoard {lastPlace.BoardNumber} finished last with a final score of {lastPlace.Score}."; 
 
-            return finalPuzzleAnswer;
+            return puzzleAnswer;
         }
 
         private static int[] getDrawnNumbersFromFile(string filepath, int lineIndexWithDrawnNumbers = 0)

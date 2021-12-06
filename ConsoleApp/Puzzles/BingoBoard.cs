@@ -10,16 +10,16 @@ namespace ConsoleApp.Puzzles
         private int[,] markedBoard;
         private int gridSize;
         private int lastCalledNumber = 0;
-        private bool _bingoStatus = false;
-        public bool BingoStatus
+        private bool _bingo = false;
+        public bool Bingo
         {
             get
             {
-                return _bingoStatus;
+                return _bingo;
             }
             set
             {
-                _bingoStatus = value;
+                _bingo = value;
 
                 if (value == true)
                 {
@@ -30,22 +30,24 @@ namespace ConsoleApp.Puzzles
         }
         public int Score { get; private set; }
         public bool StillPlaying { get; private set; } = true;
+        public int BoardNumber { get; private set; }
 
-        public BingoBoard(int[,] board)
+        public BingoBoard(int[,] board, int boardNumber)
         {
             this.board = board;
 
-            gridSize = board.GetLength(0);
+            gridSize = board.GetLength(0);  
             
             markedBoard = new int[gridSize, gridSize];
 
-            BingoStatus = false;
+            this.BoardNumber = boardNumber;
         }
 
         public void CallNumber(int number)
         {
             if (StillPlaying == false)
             {
+                // don't mark any new numbers or alter any state
                 return;
             }
 
@@ -81,7 +83,7 @@ namespace ConsoleApp.Puzzles
 
                 if (markedSum == gridSize)
                 {
-                    BingoStatus = true;
+                    Bingo = true;
                     return;
                 }
             }
@@ -98,7 +100,7 @@ namespace ConsoleApp.Puzzles
 
                 if (markedSum == gridSize)
                 {
-                    BingoStatus = true;
+                    Bingo = true;
                     return;
                 }
             }
