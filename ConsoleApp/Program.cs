@@ -18,7 +18,9 @@ namespace ConsoleApp
             //Console.WriteLine($"Solution to Day 3 Part 1 is {Day03BinaryDiagnostic.Part1(@"./data/day03_input.txt")}");
             //Console.WriteLine($"Solution to Day 3 Part 2 is {Day03BinaryDiagnostic.Part2(@"./data/day03_input.txt")}");
 
-            Console.WriteLine($"Solution to Day 4 is: {Day04GiantSquid.Parts1And2(@"./data/day04_input.txt")}");
+            //Console.WriteLine($"Solution to Day 4 is: {Day04GiantSquid.Parts1And2(@"./data/day04_input.txt")}");
+            
+            Console.WriteLine($"Solution to Day 5 Part 1 is: {Day05HydrothermalVenture.Part1(@"./data/day05_input.txt")}");
 
             Console.ReadLine();
         }        
