@@ -14,8 +14,10 @@ namespace ConsoleApp.Puzzles
 
             SyntaxScorer scorer = new SyntaxScorer(inputData);
 
+            long winningCompletionScore = scorer.getWinningCompletionScore();
+
             return $"\nThe total syntax error score was {scorer.SyntaxErrorScore}." + 
-                   $"\n...TBC";
+                   $"\nThe middle line completion score was {scorer.getWinningCompletionScore()}.";
         }
 
         private static string[] getFileData(string filepath)
