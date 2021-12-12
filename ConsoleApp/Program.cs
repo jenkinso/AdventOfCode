@@ -31,7 +31,7 @@ namespace ConsoleApp
 
             //Console.WriteLine($"Solution to Day 8 is: {Day08SevenSegmentSearch.Parts1And2(@"./data/day08_input.txt")}");
 
-            Console.WriteLine($"Solution to Day 9 Part 1 is: {Day09SmokeBasin.Parts1And2(@"./data/day09_input.txt")}");
+            Console.WriteLine($"Solution to Day 9 is: {Day09SmokeBasin.Parts1And2(@"./data/day09_input.txt")}");
 
             Console.ReadLine();
         }        
