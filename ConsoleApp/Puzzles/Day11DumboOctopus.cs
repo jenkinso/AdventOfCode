@@ -7,7 +7,7 @@ namespace ConsoleApp.Puzzles
 {
     public static class Day11DumboOctopus
     {
-        public static string Part1(string filepath)
+        public static string Parts1And2(string filepath)
         {
             //filepath = "./data/day11_testdata.txt";
             //filepath = "./data/day11_testdatalarger.txt";

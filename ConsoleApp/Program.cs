@@ -35,7 +35,7 @@ namespace ConsoleApp
 
             //Console.WriteLine($"Solution to Day 10 is: {Day10SyntaxScoring.Parts1And2(@"./data/day10_input.txt")}");
 
-            Console.WriteLine($"Solution to Day 11 is: {Day11DumboOctopus.Part1(@"./data/day11_input.txt")}");
+            Console.WriteLine($"Solution to Day 11 is: {Day11DumboOctopus.Parts1And2(@"./data/day11_input.txt")}");
 
             Console.ReadLine();
         }        
