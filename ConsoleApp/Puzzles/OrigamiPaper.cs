@@ -147,7 +147,7 @@ namespace ConsoleApp.Puzzles
             {
                 for (int x = 0; x < Grid.GetLength(1); x++)
                 {
-                    this.Grid[y, x] = '.';
+                    this.Grid[y, x] = ' ';
                 }
             }
 
