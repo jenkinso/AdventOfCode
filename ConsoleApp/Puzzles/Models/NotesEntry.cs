@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ConsoleApp.Puzzles
+namespace ConsoleApp.Puzzles.Models
 {
     public class NotesEntry
     {

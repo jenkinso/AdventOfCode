@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ConsoleApp.Puzzles
+namespace ConsoleApp.Puzzles.Models
 {
     public class LavaTubeSimple
     {
